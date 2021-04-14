@@ -67,25 +67,46 @@ module ParsePipelineData = {
     )
 
   let parse = ({name, groups, firstGroup}) =>
-    _findGroup(firstGroup, groups)->Result.bind(group =>
+    _findGroup(firstGroup, groups)
+    ->Result.bind(group =>
       _buildPipelineStream(name, group, groups)->Result.mapSuccess(pipelineStream =>
         pipelineStream->Obj.magic->WonderBsMost.Most.map(_ => Result.succeed(), _)
       )
     )
-  // ->Result.mapSuccess(Tuple2.create(PipelineEntity.create(name)))
+    ->Result.mapSuccess(stream => (name, stream))
 }
+
+let _getStreamFromTuple = ((_, pipelineStream)) => pipelineStream
+
+let _throwErr = %bs.raw(`
+(err) => {
+    throw err;
+}
+`)
+
+let _getStream = streamDataResult =>
+  streamDataResult
+  // TODO use Promise.reject instead of throw!
+  ->Result.handleFail(_throwErr)
+  ->_getStreamFromTuple
 
 let init = () => {
   DpContainer.unsafeGetSceneRenderWorkDp().init()
-  DpContainer.unsafeGetSceneRenderWorkDp().getInitPipelineData()->ParsePipelineData.parse
+  DpContainer.unsafeGetSceneRenderWorkDp().getInitPipelineData()
+  ->ParsePipelineData.parse
+  ->_getStream
 }
 
 let update = () => {
-  DpContainer.unsafeGetSceneRenderWorkDp().getUpdatePipelineData()->ParsePipelineData.parse
+  DpContainer.unsafeGetSceneRenderWorkDp().getUpdatePipelineData()
+  ->ParsePipelineData.parse
+  ->_getStream
 }
 
 let render = () => {
-  DpContainer.unsafeGetSceneRenderWorkDp().getRenderPipelineData()->ParsePipelineData.parse
+  DpContainer.unsafeGetSceneRenderWorkDp().getRenderPipelineData()
+  ->ParsePipelineData.parse
+  ->_getStream
 }
 
 // TODO convert from js vo to dp do
