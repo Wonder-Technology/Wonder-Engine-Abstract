@@ -18,7 +18,7 @@
         "wonder-bs-most"
     ],
     "package-specs": [
-        "es6-global"
+        "commonjs"
     ],
     "gentypeconfig": {
         "language": "typescript",
