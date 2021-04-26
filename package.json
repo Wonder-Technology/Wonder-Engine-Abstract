@@ -1,6 +1,6 @@
 {
     "name": "wonder-engine-abstract",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "authors": "Wonder",
     "scripts": {
         "watch": "bsb -clean-world -make-world -w",
@@ -22,12 +22,13 @@
         "babel-jest": "^26.1.0",
         "cz-conventional-changelog": "^3.2.0",
         "cz-customizable": "^5.2.0",
+        "gentype": "^3.48.0",
         "jest": "^25.2.3",
         "wonder-bs-jest": "^0.3.0",
-        "wonder-bs-sinon": "^0.1.9"
+        "wonder-bs-sinon": "^0.1.9",
+        "bs-platform": "^8.3.3"
     },
     "dependencies": {
-        "wonder-bs-most": "^0.0.3",
-        "bs-platform": "^8.3.3"
+        "wonder-bs-most": "^0.0.5"
     }
 }

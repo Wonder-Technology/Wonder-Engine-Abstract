@@ -11,7 +11,7 @@ let _throwErr = %bs.raw(`
 let _getStream = streamDataResult =>
   streamDataResult
   // TODO use Promise.reject instead of throw!
-  ->Result.handleFail(_throwErr)
+  // ->Result.handleFail(_throwErr)
   ->_getStreamFromTuple
 
 let init = () => {

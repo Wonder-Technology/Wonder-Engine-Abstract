@@ -236,7 +236,7 @@ type globalTempData = {
   float32Array1: Js.Typed_array.Float32Array.t,
 }
 
-type sceneGraphRepo = {
+export type sceneGraphRepo = {
   configRepo: configRepo,
   sceneRepo: sceneRepo,
   gameObjectRepo: gameObjectRepo,

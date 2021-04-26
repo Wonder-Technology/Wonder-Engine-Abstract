@@ -24,9 +24,12 @@ module ParsePipelineData = {
   open PipelineDOTypeForJs
 
   let _findGroup = (groupName, groups) =>
+    // switch groups->ListSt.fromArray->ListSt.getBy(({name}: group) => name === groupName) {
+    // Js.Array.find()
     switch groups->ListSt.fromArray->ListSt.getBy(({name}: group) => name === groupName) {
-    | None => Result.failWith(j`groupName:$groupName not in groups`)
-    | Some(group) => group->Result.succeed
+    // | None => Result.failWith(j`groupName:$groupName not in groups`)
+    | None => Exception.throwErr(Exception.buildErr(j`groupName:$groupName not in groups`))
+    | Some(group) => group
     }
 
   let _buildJobStream = execFunc => {
@@ -35,46 +38,57 @@ module ParsePipelineData = {
       func({
         sceneGraphRepo: DpContainerForJs.unsafeGetSceneGraphRepoDp(),
       })
-    , _)->flatMap(result => result->Result.either(s => s->just, f => f->throwError), _)
+    , // , _)->flatMap(result => result->Result.either(s => s->just, f => f->throwError), _)
+    _)
   }
 
   let _buildJobStreams = ((pipelineName, elements), groups, buildPipelineStreamFunc) =>
     elements
     ->ListSt.fromArray
-    ->ListSt.traverseReduceResultM(list{}, (streams, {name, type_}: element) =>
+    // ->ListSt.traverseReduceResultM(list{}, (streams, {name, type_}: element) =>
+    ->ListSt.reduce(list{}, (streams, {name, type_}: element) =>
       switch type_ {
       | #job =>
-        DpContainerForJs.unsafeGetSceneRenderWorkDp().getExecFunc(pipelineName, name)
-        ->Js.Nullable.to_opt
-        ->OptionSt.get
-        ->Result.mapSuccess(execFunc => streams->ListSt.push(execFunc->_buildJobStream))
+        let execFunc =
+          DpContainerForJs.unsafeGetSceneRenderWorkDp().getExecFunc(pipelineName, name)
+          ->Js.Nullable.to_opt
+          ->OptionSt.unsafeGet
+
+        streams->ListSt.push(execFunc->_buildJobStream)
+
+      // ->OptionSt.get
+      // ->Result.mapSuccess(execFunc => streams->ListSt.push(execFunc->_buildJobStream))
       | #group =>
-        _findGroup(name, groups)
-        ->Result.bind(group => buildPipelineStreamFunc(pipelineName, group, groups))
-        ->Result.mapSuccess(stream => streams->ListSt.push(stream))
+        let group = _findGroup(name, groups)
+        let stream = buildPipelineStreamFunc(pipelineName, group, groups)
+        streams->ListSt.push(stream)
+      // ->Result.bind(group => buildPipelineStreamFunc(pipelineName, group, groups))
+      // ->Result.mapSuccess(stream => streams->ListSt.push(stream))
       }
     )
 
-  let rec _buildPipelineStream = (pipelineName, {name, link, elements}, groups) =>
-    _buildJobStreams(
-      (pipelineName, elements),
-      groups,
-      _buildPipelineStream,
-    )->Result.mapSuccess(streams =>
-      streams
-      ->ListSt.toArray
-      ->switch link {
-      | #merge => WonderBsMost.Most.mergeArray
-      | #concat => MostUtils.concatArray
-      }
-    )
+  let rec _buildPipelineStream = (pipelineName, {name, link, elements}, groups) => {
+    let streams = _buildJobStreams((pipelineName, elements), groups, _buildPipelineStream)
+    // ->Result.mapSuccess(streams =>
 
-  let parse = ({name, groups, firstGroup}) =>
-    _findGroup(firstGroup, groups)
-    ->Result.bind(group =>
-      _buildPipelineStream(name, group, groups)->Result.mapSuccess(pipelineStream =>
-        pipelineStream->Obj.magic->WonderBsMost.Most.map(_ => Result.succeed(), _)
-      )
-    )
-    ->Result.mapSuccess(stream => (name, stream))
+    streams
+    ->ListSt.toArray
+    ->switch link {
+    | #merge => WonderBsMost.Most.mergeArray
+    | #concat => MostUtils.concatArray
+    }
+    // )
+  }
+
+  let parse = ({name, groups, firstGroup}) => {
+    let group = _findGroup(firstGroup, groups)
+    (name, _buildPipelineStream(name, group, groups))
+    // ->Obj.magic->WonderBsMost.Most.map(_ => Result.succeed(), _)
+    // ->Result.bind(group =>
+    //   _buildPipelineStream(name, group, groups)->Result.mapSuccess(pipelineStream =>
+    //     pipelineStream->Obj.magic->WonderBsMost.Most.map(_ => Result.succeed(), _)
+    //   )
+    // )
+    // ->Result.mapSuccess(stream => (name, stream))
+  }
 }

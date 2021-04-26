@@ -18,8 +18,20 @@
         "wonder-bs-most"
     ],
     "package-specs": [
-        "commonjs"
+        "es6-global"
     ],
+    "gentypeconfig": {
+        "language": "typescript",
+        "shims": {
+            "Js": "Js"
+        },
+        "module": "es6",
+        "importPath": "relative",
+        "debug": {
+            "all": false
+        },
+        "exportInterfaces": false
+    },
     "suffix": ".bs.js",
     "namespace": true,
     "warnings": {

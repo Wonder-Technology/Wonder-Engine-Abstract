@@ -19,7 +19,7 @@ type group = {
 
 type pipelineName = string
 
-type pipelineData = {
+export type pipelineData = {
   name: pipelineName,
   groups: array<group>,
   firstGroup: groupName,
@@ -27,6 +27,9 @@ type pipelineData = {
 
 type repo = {sceneGraphRepo: ISceneGraphRepoForJs.sceneGraphRepo}
 
-type execFunc = repo => WonderBsMost.Most.stream<Result.t2<unit>>
+@genType.import(("most", "Stream"))
+type stream<'a> = WonderBsMost.Most.stream<'a>
 
-type pipelineStream = WonderBsMost.Most.stream<Result.t2<unit>>
+export type execFunc = repo => stream<unit>
+
+export type pipelineStream = stream<unit>
