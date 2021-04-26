@@ -1,10 +1,6 @@
-type link =
-  | Merge
-  | Concat
+type link = [#merge | #concat]
 
-type elementType =
-  | Job
-  | Group
+type elementType = [#job | #group]
 
 type elementName = string
 
@@ -18,14 +14,14 @@ type groupName = string
 type group = {
   name: groupName,
   link: link,
-  elements: list<element>,
+  elements: array<element>,
 }
 
 type pipelineName = string
 
 type pipelineData = {
   name: pipelineName,
-  groups: list<group>,
+  groups: array<group>,
   firstGroup: groupName,
 }
 

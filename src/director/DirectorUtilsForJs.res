@@ -24,7 +24,7 @@ module ParsePipelineData = {
   open PipelineDOTypeForJs
 
   let _findGroup = (groupName, groups) =>
-    switch groups->ListSt.getBy(({name}: group) => name === groupName) {
+    switch groups->ListSt.fromArray->ListSt.getBy(({name}: group) => name === groupName) {
     | None => Result.failWith(j`groupName:$groupName not in groups`)
     | Some(group) => group->Result.succeed
     }
@@ -39,13 +39,16 @@ module ParsePipelineData = {
   }
 
   let _buildJobStreams = ((pipelineName, elements), groups, buildPipelineStreamFunc) =>
-    elements->ListSt.traverseReduceResultM(list{}, (streams, {name, type_}: element) =>
+    elements
+    ->ListSt.fromArray
+    ->ListSt.traverseReduceResultM(list{}, (streams, {name, type_}: element) =>
       switch type_ {
-      | Job =>
+      | #job =>
         DpContainerForJs.unsafeGetSceneRenderWorkDp().getExecFunc(pipelineName, name)
+        ->Js.Nullable.to_opt
         ->OptionSt.get
         ->Result.mapSuccess(execFunc => streams->ListSt.push(execFunc->_buildJobStream))
-      | Group =>
+      | #group =>
         _findGroup(name, groups)
         ->Result.bind(group => buildPipelineStreamFunc(pipelineName, group, groups))
         ->Result.mapSuccess(stream => streams->ListSt.push(stream))
@@ -61,8 +64,8 @@ module ParsePipelineData = {
       streams
       ->ListSt.toArray
       ->switch link {
-      | Merge => WonderBsMost.Most.mergeArray
-      | Concat => MostUtils.concatArray
+      | #merge => WonderBsMost.Most.mergeArray
+      | #concat => MostUtils.concatArray
       }
     )
 

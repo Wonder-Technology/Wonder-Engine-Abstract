@@ -6,7 +6,7 @@ type getUpdatePipelineData = unit => PipelineDOTypeForJs.pipelineData
 
 type getRenderPipelineData = unit => PipelineDOTypeForJs.pipelineData
 
-type getExecFunc = (string, string) => option<PipelineDOTypeForJs.execFunc>
+type getExecFunc = (string, string) => Js.Nullable.t<PipelineDOTypeForJs.execFunc>
 
 type sceneRenderWork = {
   init: init,
