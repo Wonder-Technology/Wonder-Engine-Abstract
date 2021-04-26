@@ -29,7 +29,7 @@ type pipelineData = {
   firstGroup: groupName,
 }
 
-type repo = {sceneGraphRepo: ISceneGraphRepo.sceneGraphRepo}
+type repo = {sceneGraphRepo: ISceneGraphRepoForJs.sceneGraphRepo}
 
 type execFunc = repo => WonderBsMost.Most.stream<Result.t2<unit>>
 

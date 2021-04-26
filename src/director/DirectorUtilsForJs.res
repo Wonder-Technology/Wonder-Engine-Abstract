@@ -1,14 +1,12 @@
 module MostUtils = {
   open WonderBsMost.Most
 
-  let _isFromEventStream = %bs.raw(
-    `
+  let _isFromEventStream = %bs.raw(`
   function(stream){
     var source = stream.source;
     return !!source.event && !!source.source;
   }
-  `
-  )
+  `)
 
   let concatArray = streamArr =>
     switch Js.Array.length(streamArr) {
@@ -23,7 +21,7 @@ module MostUtils = {
 }
 
 module ParsePipelineData = {
-  open PipelineDOType
+  open PipelineDOTypeForJs
 
   let _findGroup = (groupName, groups) =>
     switch groups->ListSt.getBy(({name}: group) => name === groupName) {
@@ -35,7 +33,7 @@ module ParsePipelineData = {
     open WonderBsMost.Most
     execFunc->just->flatMap(func =>
       func({
-        sceneGraphRepo: DpContainer.unsafeGetSceneGraphRepoDp(),
+        sceneGraphRepo: DpContainerForJs.unsafeGetSceneGraphRepoDp(),
       })
     , _)->flatMap(result => result->Result.either(s => s->just, f => f->throwError), _)
   }
@@ -44,7 +42,7 @@ module ParsePipelineData = {
     elements->ListSt.traverseReduceResultM(list{}, (streams, {name, type_}: element) =>
       switch type_ {
       | Job =>
-        DpContainer.unsafeGetSceneRenderWorkDp().getExecFunc(pipelineName, name)
+        DpContainerForJs.unsafeGetSceneRenderWorkDp().getExecFunc(pipelineName, name)
         ->OptionSt.get
         ->Result.mapSuccess(execFunc => streams->ListSt.push(execFunc->_buildJobStream))
       | Group =>

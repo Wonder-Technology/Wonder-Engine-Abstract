@@ -1,6 +1,6 @@
 type t = {
-  mutable sceneRenderWork: option<ISceneRenderWork.sceneRenderWork>,
-  mutable sceneGraphRepo: option<ISceneGraphRepo.sceneGraphRepo>,
+  mutable sceneRenderWork: option<ISceneRenderWorkForJs.sceneRenderWork>,
+  mutable sceneGraphRepo: option<ISceneGraphRepoForJs.sceneGraphRepo>,
   // mutable webgpuCore: option<IWebGPUCoreDp.webgpuCore>,
 }
 

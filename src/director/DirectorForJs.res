@@ -1,4 +1,4 @@
-open DirectorUtils;
+open DirectorUtilsForJs
 
 let _getStreamFromTuple = ((_, pipelineStream)) => pipelineStream
 
@@ -15,30 +15,28 @@ let _getStream = streamDataResult =>
   ->_getStreamFromTuple
 
 let init = () => {
-  DpContainer.unsafeGetSceneRenderWorkDp().init()
-  DpContainer.unsafeGetSceneRenderWorkDp().getInitPipelineData()
+  DpContainerForJs.unsafeGetSceneRenderWorkDp().init()
+  DpContainerForJs.unsafeGetSceneRenderWorkDp().getInitPipelineData()
   ->ParsePipelineData.parse
   ->_getStream
 }
 
 let update = () => {
-  DpContainer.unsafeGetSceneRenderWorkDp().getUpdatePipelineData()
+  DpContainerForJs.unsafeGetSceneRenderWorkDp().getUpdatePipelineData()
   ->ParsePipelineData.parse
   ->_getStream
 }
 
 let render = () => {
-  DpContainer.unsafeGetSceneRenderWorkDp().getRenderPipelineData()
+  DpContainerForJs.unsafeGetSceneRenderWorkDp().getRenderPipelineData()
   ->ParsePipelineData.parse
   ->_getStream
 }
 
-// TODO convert from js vo to dp do
-
 let setSceneRenderWorkDp = dp => {
-  DpContainer.setSceneRenderWorkDp(dp)
+  DpContainerForJs.setSceneRenderWorkDp(dp)
 }
 
 let setSceneGraphRepoDp = dp => {
-  DpContainer.setSceneGraphRepoDp(dp)
+  DpContainerForJs.setSceneGraphRepoDp(dp)
 }
