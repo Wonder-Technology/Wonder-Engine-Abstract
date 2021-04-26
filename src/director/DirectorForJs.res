@@ -8,13 +8,16 @@ let _throwErr = %bs.raw(`
 }
 `)
 
-let _getStream = streamDataResult =>
-  streamDataResult->_getStreamFromTuple
-  // TODO use Promise.reject instead of throw!
-  // ->Result.handleFail(_throwErr)
+let _getStream = streamDataResult => streamDataResult->_getStreamFromTuple
+// TODO use Promise.reject instead of throw!
+// ->Result.handleFail(_throwErr)
+
+let prepare = (canvas, configData, globalTempData) => {
+  DpContainerForJs.unsafeGetSceneGraphRepoDp().init(canvas, configData, globalTempData)
+  DpContainerForJs.unsafeGetSceneRenderWorkDp().init()
+}
 
 let init = () => {
-  DpContainerForJs.unsafeGetSceneRenderWorkDp().init()
   DpContainerForJs.unsafeGetSceneRenderWorkDp().getInitPipelineData()
   ->ParsePipelineData.parse
   ->_getStream
@@ -31,6 +34,10 @@ let render = () => {
   ->ParsePipelineData.parse
   ->_getStream
 }
+
+// let unsafeGetSceneRenderWorkDp = () => {
+//   DpContainerForJs.unsafeGetSceneRenderWorkDp()
+// }
 
 let setSceneRenderWorkDp = dp => {
   DpContainerForJs.setSceneRenderWorkDp(dp)
