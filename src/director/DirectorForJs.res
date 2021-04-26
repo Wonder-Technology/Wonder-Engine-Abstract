@@ -9,10 +9,9 @@ let _throwErr = %bs.raw(`
 `)
 
 let _getStream = streamDataResult =>
-  streamDataResult
+  streamDataResult->_getStreamFromTuple
   // TODO use Promise.reject instead of throw!
   // ->Result.handleFail(_throwErr)
-  ->_getStreamFromTuple
 
 let init = () => {
   DpContainerForJs.unsafeGetSceneRenderWorkDp().init()
@@ -35,6 +34,10 @@ let render = () => {
 
 let setSceneRenderWorkDp = dp => {
   DpContainerForJs.setSceneRenderWorkDp(dp)
+}
+
+let unsafeGetSceneGraphRepoDp = () => {
+  DpContainerForJs.unsafeGetSceneGraphRepoDp()
 }
 
 let setSceneGraphRepoDp = dp => {
