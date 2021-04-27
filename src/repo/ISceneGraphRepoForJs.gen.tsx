@@ -57,7 +57,15 @@ export type configRepo = {
   readonly getIsDebug: () => boolean; 
   readonly setIsDebug: (_1:boolean) => void; 
   readonly getTransformCount: () => number; 
-  readonly setTransformCount: (_1:number) => void
+  readonly setTransformCount: (_1:number) => void; 
+  readonly getGeometryCount: () => number; 
+  readonly setGeometryCount: (_1:number) => void; 
+  readonly getGeometryPointCount: () => number; 
+  readonly setGeometryPointCount: (_1:number) => void; 
+  readonly getDirectionLightCount: () => number; 
+  readonly setDirectionLightCount: (_1:number) => void; 
+  readonly getPBRMaterialCount: () => number; 
+  readonly setPBRMaterialCount: (_1:number) => void
 };
 
 // tslint:disable-next-line:interface-over-type-literal

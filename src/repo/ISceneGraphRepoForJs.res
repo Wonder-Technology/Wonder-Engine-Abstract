@@ -29,6 +29,14 @@ type configRepo = {
   setIsDebug: bool => unit,
   getTransformCount: unit => int,
   setTransformCount: int => unit,
+  getGeometryCount: unit => int,
+  setGeometryCount: int => unit,
+  getGeometryPointCount: unit => int,
+  setGeometryPointCount: int => unit,
+  getDirectionLightCount: unit => int,
+  setDirectionLightCount: int => unit,
+  getPBRMaterialCount: unit => int,
+  setPBRMaterialCount: int => unit,
 }
 
 type position = (float, float, float)
