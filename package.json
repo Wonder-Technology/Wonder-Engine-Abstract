@@ -1,6 +1,6 @@
 {
     "name": "wonder-engine-abstract",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "authors": "Wonder",
     "scripts": {
         "watch": "bsb -clean-world -make-world -w",
