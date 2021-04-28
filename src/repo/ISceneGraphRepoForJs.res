@@ -133,6 +133,7 @@ type specularMap
 
 type pbrMaterialRepo = {
   create: unit => pbrMaterial,
+  getGameObjects: pbrMaterial => Js.Nullable.t<array<gameObject>>,
   getDiffuseColor: pbrMaterial => color,
   setDiffuseColor: (pbrMaterial, color) => unit,
   getSpecularColor: pbrMaterial => color,
@@ -247,6 +248,9 @@ type gameObjectRepo = {
   getPerspectiveCameraProjection: gameObject => Js.Nullable.t<perspectiveCameraProjection>,
   addPerspectiveCameraProjection: (gameObject, perspectiveCameraProjection) => gameObject,
   hasPerspectiveCameraProjection: gameObject => bool,
+  getArcballCameraController: gameObject => Js.Nullable.t<arcballCameraController>,
+  addArcballCameraController: (gameObject, arcballCameraController) => gameObject,
+  hasArcballCameraController: gameObject => bool,
 }
 
 type sceneRepo = {
@@ -254,6 +258,7 @@ type sceneRepo = {
   add: (scene, gameObject) => unit,
   getScene: unit => Js.Nullable.t<scene>,
   setScene: scene => unit,
+  getAllRenderGameObjects: scene => array<gameObject>,
   getAllGeometries: scene => array<geometry>,
   getAllPBRMaterials: scene => array<pbrMaterial>,
 }

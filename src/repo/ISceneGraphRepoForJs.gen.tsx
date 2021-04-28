@@ -183,6 +183,7 @@ export abstract class specularMap { protected opaque!: any }; /* simulate opaque
 // tslint:disable-next-line:interface-over-type-literal
 export type pbrMaterialRepo = {
   readonly create: () => pbrMaterial; 
+  readonly getGameObjects: (_1:pbrMaterial) => (null | undefined | gameObject[]); 
   readonly getDiffuseColor: (_1:pbrMaterial) => color; 
   readonly setDiffuseColor: (_1:pbrMaterial, _2:color) => void; 
   readonly getSpecularColor: (_1:pbrMaterial) => color; 
@@ -301,7 +302,10 @@ export type gameObjectRepo = {
   readonly hasBasicCameraView: (_1:gameObject) => boolean; 
   readonly getPerspectiveCameraProjection: (_1:gameObject) => (null | undefined | perspectiveCameraProjection); 
   readonly addPerspectiveCameraProjection: (_1:gameObject, _2:perspectiveCameraProjection) => gameObject; 
-  readonly hasPerspectiveCameraProjection: (_1:gameObject) => boolean
+  readonly hasPerspectiveCameraProjection: (_1:gameObject) => boolean; 
+  readonly getArcballCameraController: (_1:gameObject) => (null | undefined | arcballCameraController); 
+  readonly addArcballCameraController: (_1:gameObject, _2:arcballCameraController) => gameObject; 
+  readonly hasArcballCameraController: (_1:gameObject) => boolean
 };
 
 // tslint:disable-next-line:interface-over-type-literal
@@ -310,6 +314,7 @@ export type sceneRepo = {
   readonly add: (_1:scene, _2:gameObject) => void; 
   readonly getScene: () => (null | undefined | scene); 
   readonly setScene: (_1:scene) => void; 
+  readonly getAllRenderGameObjects: (_1:scene) => gameObject[]; 
   readonly getAllGeometries: (_1:scene) => geometry[]; 
   readonly getAllPBRMaterials: (_1:scene) => pbrMaterial[]
 };
