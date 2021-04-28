@@ -14,6 +14,8 @@ type basicCameraView
 
 type perspectiveCameraProjection
 
+type arcballCameraController
+
 type context
 
 type canvas = {
@@ -199,6 +201,32 @@ type perspectiveCameraProjectionRepo = {
   update: unit => unit,
 }
 
+type arcballCameraControllerRepo = {
+  create: unit => arcballCameraController,
+  getGameObject: arcballCameraController => Js.Nullable.t<gameObject>,
+  getDistance: arcballCameraController => Js.Nullable.t<float>,
+  setDistance: ( arcballCameraController, float ) => unit,
+  getMinDistance: arcballCameraController => Js.Nullable.t<float>,
+  setMinDistance: ( arcballCameraController, float ) => unit,
+  getWheelSpeed: arcballCameraController => Js.Nullable.t<float>,
+  setWheelSpeed: ( arcballCameraController, float ) => unit,
+  getPhi: arcballCameraController => Js.Nullable.t<float>,
+  setPhi: ( arcballCameraController, float ) => unit,
+  getTheta: arcballCameraController => Js.Nullable.t<float>,
+  setTheta: ( arcballCameraController, float ) => unit,
+  getThetaMargin: arcballCameraController => Js.Nullable.t<float>,
+  setThetaMargin: ( arcballCameraController, float ) => unit,
+  getTarget: arcballCameraController => Js.Nullable.t<target>,
+  setTarget: ( arcballCameraController, target ) => unit,
+  getMoveSpeedX: arcballCameraController => Js.Nullable.t<float>,
+  setMoveSpeedX: ( arcballCameraController, float ) => unit,
+  getMoveSpeedY: arcballCameraController => Js.Nullable.t<float>,
+  setMoveSpeedY: ( arcballCameraController, float ) => unit,
+  getRotateSpeed: arcballCameraController => Js.Nullable.t<float>,
+  setRotateSpeed: ( arcballCameraController, float ) => unit,
+  update: unit => unit,
+}
+
 type gameObjectRepo = {
   create: unit => gameObject,
   getTransform: gameObject => Js.Nullable.t<transform>,
@@ -254,6 +282,7 @@ export type sceneGraphRepo = {
   directionLightRepo: directionLightRepo,
   basicCameraViewRepo: basicCameraViewRepo,
   perspectiveCameraProjectionRepo: perspectiveCameraProjectionRepo,
+  arcballCameraControllerRepo:arcballCameraControllerRepo,
   init: (canvas, configData, globalTempData) => unit,
   getCanvas: unit => Js.Nullable.t<canvas>,
 }

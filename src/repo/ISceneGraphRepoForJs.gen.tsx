@@ -40,6 +40,10 @@ export abstract class perspectiveCameraProjection { protected opaque!: any }; /*
 
 // tslint:disable-next-line:max-classes-per-file 
 // tslint:disable-next-line:class-name
+export abstract class arcballCameraController { protected opaque!: any }; /* simulate opaque types */
+
+// tslint:disable-next-line:max-classes-per-file 
+// tslint:disable-next-line:class-name
 export abstract class context { protected opaque!: any }; /* simulate opaque types */
 
 // tslint:disable-next-line:interface-over-type-literal
@@ -251,6 +255,33 @@ export type perspectiveCameraProjectionRepo = {
 };
 
 // tslint:disable-next-line:interface-over-type-literal
+export type arcballCameraControllerRepo = {
+  readonly create: () => arcballCameraController; 
+  readonly getGameObject: (_1:arcballCameraController) => (null | undefined | gameObject); 
+  readonly getDistance: (_1:arcballCameraController) => (null | undefined | number); 
+  readonly setDistance: (_1:arcballCameraController, _2:number) => void; 
+  readonly getMinDistance: (_1:arcballCameraController) => (null | undefined | number); 
+  readonly setMinDistance: (_1:arcballCameraController, _2:number) => void; 
+  readonly getWheelSpeed: (_1:arcballCameraController) => (null | undefined | number); 
+  readonly setWheelSpeed: (_1:arcballCameraController, _2:number) => void; 
+  readonly getPhi: (_1:arcballCameraController) => (null | undefined | number); 
+  readonly setPhi: (_1:arcballCameraController, _2:number) => void; 
+  readonly getTheta: (_1:arcballCameraController) => (null | undefined | number); 
+  readonly setTheta: (_1:arcballCameraController, _2:number) => void; 
+  readonly getThetaMargin: (_1:arcballCameraController) => (null | undefined | number); 
+  readonly setThetaMargin: (_1:arcballCameraController, _2:number) => void; 
+  readonly getTarget: (_1:arcballCameraController) => (null | undefined | target); 
+  readonly setTarget: (_1:arcballCameraController, _2:target) => void; 
+  readonly getMoveSpeedX: (_1:arcballCameraController) => (null | undefined | number); 
+  readonly setMoveSpeedX: (_1:arcballCameraController, _2:number) => void; 
+  readonly getMoveSpeedY: (_1:arcballCameraController) => (null | undefined | number); 
+  readonly setMoveSpeedY: (_1:arcballCameraController, _2:number) => void; 
+  readonly getRotateSpeed: (_1:arcballCameraController) => (null | undefined | number); 
+  readonly setRotateSpeed: (_1:arcballCameraController, _2:number) => void; 
+  readonly update: () => void
+};
+
+// tslint:disable-next-line:interface-over-type-literal
 export type gameObjectRepo = {
   readonly create: () => gameObject; 
   readonly getTransform: (_1:gameObject) => (null | undefined | transform); 
@@ -307,6 +338,7 @@ export type sceneGraphRepo = {
   readonly directionLightRepo: directionLightRepo; 
   readonly basicCameraViewRepo: basicCameraViewRepo; 
   readonly perspectiveCameraProjectionRepo: perspectiveCameraProjectionRepo; 
+  readonly arcballCameraControllerRepo: arcballCameraControllerRepo; 
   readonly init: (_1:canvas, _2:configData, _3:globalTempData) => void; 
   readonly getCanvas: () => (null | undefined | canvas)
 };
