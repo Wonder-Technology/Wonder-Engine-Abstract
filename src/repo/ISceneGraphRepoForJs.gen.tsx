@@ -314,6 +314,7 @@ export type sceneRepo = {
   readonly add: (_1:scene, _2:gameObject) => void; 
   readonly getScene: () => (null | undefined | scene); 
   readonly setScene: (_1:scene) => void; 
+  readonly getAllGameObjects: (_1:scene) => gameObject[]; 
   readonly getAllRenderGameObjects: (_1:scene) => gameObject[]; 
   readonly getAllGeometries: (_1:scene) => geometry[]; 
   readonly getAllPBRMaterials: (_1:scene) => pbrMaterial[]
