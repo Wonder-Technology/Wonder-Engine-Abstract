@@ -101,6 +101,7 @@ export type target = [number, number, number];
 
 // tslint:disable-next-line:interface-over-type-literal
 export type transformRepo = {
+  readonly getId: (_1:transform) => number; 
   readonly create: () => transform; 
   readonly getGameObject: (_1:transform) => (null | undefined | gameObject); 
   readonly getParent: (_1:transform) => (null | undefined | transform); 
@@ -132,6 +133,7 @@ export type transformRepo = {
 
 // tslint:disable-next-line:interface-over-type-literal
 export type geometryRepo = {
+  readonly getId: (_1:geometry) => number; 
   readonly create: () => geometry; 
   readonly getGameObjects: (_1:geometry) => (null | undefined | gameObject[]); 
   readonly createTriangleGeometry: () => geometry; 
@@ -182,6 +184,7 @@ export abstract class specularMap { protected opaque!: any }; /* simulate opaque
 
 // tslint:disable-next-line:interface-over-type-literal
 export type pbrMaterialRepo = {
+  readonly getId: (_1:pbrMaterial) => number; 
   readonly create: () => pbrMaterial; 
   readonly getGameObjects: (_1:pbrMaterial) => (null | undefined | gameObject[]); 
   readonly getDiffuseColor: (_1:pbrMaterial) => color; 
@@ -214,6 +217,7 @@ export type pbrMaterialRepo = {
 
 // tslint:disable-next-line:interface-over-type-literal
 export type directionLightRepo = {
+  readonly getId: (_1:directionLight) => number; 
   readonly create: () => directionLight; 
   readonly getGameObject: (_1:directionLight) => (null | undefined | gameObject); 
   readonly getColor: (_1:directionLight) => color; 
@@ -227,6 +231,7 @@ export type directionLightRepo = {
 
 // tslint:disable-next-line:interface-over-type-literal
 export type basicCameraViewRepo = {
+  readonly getId: (_1:basicCameraView) => number; 
   readonly create: () => basicCameraView; 
   readonly getGameObject: (_1:basicCameraView) => (null | undefined | gameObject); 
   readonly getViewWorldToCameraMatrix: (_1:basicCameraView) => (null | undefined | Js_Typed_array_Float32Array_t); 
@@ -239,6 +244,7 @@ export type basicCameraViewRepo = {
 
 // tslint:disable-next-line:interface-over-type-literal
 export type perspectiveCameraProjectionRepo = {
+  readonly getId: (_1:perspectiveCameraProjection) => number; 
   readonly create: () => perspectiveCameraProjection; 
   readonly getGameObject: (_1:perspectiveCameraProjection) => (null | undefined | gameObject); 
   readonly getPMatrix: (_1:perspectiveCameraProjection) => (null | undefined | Js_Typed_array_Float32Array_t); 
@@ -257,6 +263,7 @@ export type perspectiveCameraProjectionRepo = {
 
 // tslint:disable-next-line:interface-over-type-literal
 export type arcballCameraControllerRepo = {
+  readonly getId: (_1:arcballCameraController) => number; 
   readonly create: () => arcballCameraController; 
   readonly getGameObject: (_1:arcballCameraController) => (null | undefined | gameObject); 
   readonly getDistance: (_1:arcballCameraController) => (null | undefined | number); 
@@ -284,6 +291,7 @@ export type arcballCameraControllerRepo = {
 
 // tslint:disable-next-line:interface-over-type-literal
 export type gameObjectRepo = {
+  readonly getId: (_1:gameObject) => number; 
   readonly create: () => gameObject; 
   readonly getTransform: (_1:gameObject) => (null | undefined | transform); 
   readonly addTransform: (_1:gameObject, _2:transform) => gameObject; 

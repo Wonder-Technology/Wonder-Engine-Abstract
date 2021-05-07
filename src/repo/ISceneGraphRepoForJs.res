@@ -60,6 +60,7 @@ type axis = (float, float, float)
 type target = (float, float, float)
 
 type transformRepo = {
+  getId: transform => int,
   create: unit => transform,
   getGameObject: transform => Js.Nullable.t<gameObject>,
   getParent: transform => Js.Nullable.t<transform>,
@@ -90,6 +91,7 @@ type transformRepo = {
 }
 
 type geometryRepo = {
+  getId: geometry => int,
   create: unit => geometry,
   getGameObjects: geometry => Js.Nullable.t<array<gameObject>>,
   createTriangleGeometry: unit => geometry,
@@ -132,6 +134,7 @@ type transmissionMap
 type specularMap
 
 type pbrMaterialRepo = {
+  getId: pbrMaterial => int,
   create: unit => pbrMaterial,
   getGameObjects: pbrMaterial => Js.Nullable.t<array<gameObject>>,
   getDiffuseColor: pbrMaterial => color,
@@ -163,6 +166,7 @@ type pbrMaterialRepo = {
 }
 
 type directionLightRepo = {
+  getId: directionLight => int,
   create: unit => directionLight,
   getGameObject: directionLight => Js.Nullable.t<gameObject>,
   getColor: directionLight => color,
@@ -175,6 +179,7 @@ type directionLightRepo = {
 }
 
 type basicCameraViewRepo = {
+  getId: basicCameraView => int,
   create: unit => basicCameraView,
   getGameObject: basicCameraView => Js.Nullable.t<gameObject>,
   getViewWorldToCameraMatrix: basicCameraView => Js.Nullable.t<Js.Typed_array.Float32Array.t>,
@@ -186,6 +191,7 @@ type basicCameraViewRepo = {
 }
 
 type perspectiveCameraProjectionRepo = {
+  getId: perspectiveCameraProjection => int,
   create: unit => perspectiveCameraProjection,
   getGameObject: perspectiveCameraProjection => Js.Nullable.t<gameObject>,
   getPMatrix: perspectiveCameraProjection => Js.Nullable.t<Js.Typed_array.Float32Array.t>,
@@ -203,6 +209,7 @@ type perspectiveCameraProjectionRepo = {
 }
 
 type arcballCameraControllerRepo = {
+  getId: arcballCameraController => int,
   create: unit => arcballCameraController,
   getGameObject: arcballCameraController => Js.Nullable.t<gameObject>,
   getDistance: arcballCameraController => Js.Nullable.t<float>,
@@ -229,6 +236,7 @@ type arcballCameraControllerRepo = {
 }
 
 type gameObjectRepo = {
+  getId: gameObject => int,
   create: unit => gameObject,
   getTransform: gameObject => Js.Nullable.t<transform>,
   addTransform: (gameObject, transform) => gameObject,
