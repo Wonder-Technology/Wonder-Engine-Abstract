@@ -60,7 +60,8 @@ type axis = (float, float, float)
 type target = (float, float, float)
 
 type transformRepo = {
-  getId: transform => int,
+  getIndex: transform => int,
+  toComponent: int => transform,
   create: unit => transform,
   getGameObject: transform => Js.Nullable.t<gameObject>,
   getParent: transform => Js.Nullable.t<transform>,
@@ -91,7 +92,8 @@ type transformRepo = {
 }
 
 type geometryRepo = {
-  getId: geometry => int,
+  getIndex: geometry => int,
+  toComponent: int => geometry,
   create: unit => geometry,
   getGameObjects: geometry => Js.Nullable.t<array<gameObject>>,
   createTriangleGeometry: unit => geometry,
@@ -134,7 +136,8 @@ type transmissionMap
 type specularMap
 
 type pbrMaterialRepo = {
-  getId: pbrMaterial => int,
+  getIndex: pbrMaterial => int,
+  toComponent: int => pbrMaterial,
   create: unit => pbrMaterial,
   getGameObjects: pbrMaterial => Js.Nullable.t<array<gameObject>>,
   getDiffuseColor: pbrMaterial => color,
@@ -166,7 +169,8 @@ type pbrMaterialRepo = {
 }
 
 type directionLightRepo = {
-  getId: directionLight => int,
+  getIndex: directionLight => int,
+  toComponent: int => directionLight,
   create: unit => directionLight,
   getGameObject: directionLight => Js.Nullable.t<gameObject>,
   getColor: directionLight => color,
@@ -179,7 +183,8 @@ type directionLightRepo = {
 }
 
 type basicCameraViewRepo = {
-  getId: basicCameraView => int,
+  getIndex: basicCameraView => int,
+  toComponent: int => basicCameraView,
   create: unit => basicCameraView,
   getGameObject: basicCameraView => Js.Nullable.t<gameObject>,
   getViewWorldToCameraMatrix: basicCameraView => Js.Nullable.t<Js.Typed_array.Float32Array.t>,
@@ -191,7 +196,8 @@ type basicCameraViewRepo = {
 }
 
 type perspectiveCameraProjectionRepo = {
-  getId: perspectiveCameraProjection => int,
+  getIndex: perspectiveCameraProjection => int,
+  toComponent: int => perspectiveCameraProjection,
   create: unit => perspectiveCameraProjection,
   getGameObject: perspectiveCameraProjection => Js.Nullable.t<gameObject>,
   getPMatrix: perspectiveCameraProjection => Js.Nullable.t<Js.Typed_array.Float32Array.t>,
@@ -209,7 +215,8 @@ type perspectiveCameraProjectionRepo = {
 }
 
 type arcballCameraControllerRepo = {
-  getId: arcballCameraController => int,
+  getIndex: arcballCameraController => int,
+  toComponent: int => arcballCameraController,
   create: unit => arcballCameraController,
   getGameObject: arcballCameraController => Js.Nullable.t<gameObject>,
   getDistance: arcballCameraController => Js.Nullable.t<float>,
@@ -236,7 +243,6 @@ type arcballCameraControllerRepo = {
 }
 
 type gameObjectRepo = {
-  getId: gameObject => int,
   create: unit => gameObject,
   getTransform: gameObject => Js.Nullable.t<transform>,
   addTransform: (gameObject, transform) => gameObject,

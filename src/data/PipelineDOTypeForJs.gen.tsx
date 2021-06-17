@@ -2,9 +2,9 @@
 /* eslint-disable import/first */
 
 
-import {Stream as $$stream} from 'most';
+import type {Stream as $$stream} from 'most';
 
-import {sceneGraphRepo as ISceneGraphRepoForJs_sceneGraphRepo} from '../../src/repo/ISceneGraphRepoForJs.gen';
+import type {sceneGraphRepo as ISceneGraphRepoForJs_sceneGraphRepo} from '../../src/repo/ISceneGraphRepoForJs.gen';
 
 // tslint:disable-next-line:interface-over-type-literal
 export type link = "merge" | "concat";

@@ -2,9 +2,9 @@
 /* eslint-disable import/first */
 
 
-import {execFunc as PipelineDOTypeForJs_execFunc} from '../../src/data/PipelineDOTypeForJs.gen';
+import type {execFunc as PipelineDOTypeForJs_execFunc} from '../../src/data/PipelineDOTypeForJs.gen';
 
-import {pipelineData as PipelineDOTypeForJs_pipelineData} from '../../src/data/PipelineDOTypeForJs.gen';
+import type {pipelineData as PipelineDOTypeForJs_pipelineData} from '../../src/data/PipelineDOTypeForJs.gen';
 
 // tslint:disable-next-line:interface-over-type-literal
 export type init = () => void;
