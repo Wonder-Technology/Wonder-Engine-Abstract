@@ -25,11 +25,19 @@ export type pipelineData = {
   firstGroup: groupName,
 }
 
-type repo = {sceneGraphRepo: ISceneGraphRepoForJs.sceneGraphRepo}
+type repoForNoWorker = {sceneGraphRepo: ISceneGraphRepoForJs.sceneGraphRepoForNoWorker}
+
+type repoForMainWorker = {sceneGraphRepo: ISceneGraphRepoForJs.sceneGraphRepoForMainWorker}
+
+type repoForRenderWorker = {sceneGraphRepo: ISceneGraphRepoForJs.sceneGraphRepoForRenderWorker}
 
 @genType.import(("most", "Stream"))
 type stream<'a> = WonderBsMost.Most.stream<'a>
 
-export type execFunc = repo => stream<unit>
+export type execFuncForNoWorker = repoForNoWorker => stream<unit>
+
+export type execFuncForMainWorker = repoForMainWorker => stream<unit>
+
+export type execFuncForRenderWorker = repoForRenderWorker => stream<unit>
 
 export type pipelineStream = stream<unit>

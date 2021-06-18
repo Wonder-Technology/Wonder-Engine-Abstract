@@ -293,7 +293,9 @@ type globalTempData = {
   float32Array1: Js.Typed_array.Float32Array.t,
 }
 
-export type sceneGraphRepo = {
+// export type sceneGraphRepo
+
+export type sceneGraphRepoForNoWorker = {
   configRepo: configRepo,
   sceneRepo: sceneRepo,
   gameObjectRepo: gameObjectRepo,
@@ -306,4 +308,94 @@ export type sceneGraphRepo = {
   arcballCameraControllerRepo: arcballCameraControllerRepo,
   init: (canvas, configData, globalTempData) => unit,
   getCanvas: unit => Js.Nullable.t<canvas>,
+}
+
+type sharedArrayBufferData
+
+export type sceneGraphRepoForMainWorker = {
+  configRepo: configRepo,
+  sceneRepo: sceneRepo,
+  gameObjectRepo: gameObjectRepo,
+  transformRepo: transformRepo,
+  geometryRepo: geometryRepo,
+  pbrMaterialRepo: pbrMaterialRepo,
+  directionLightRepo: directionLightRepo,
+  basicCameraViewRepo: basicCameraViewRepo,
+  perspectiveCameraProjectionRepo: perspectiveCameraProjectionRepo,
+  arcballCameraControllerRepo: arcballCameraControllerRepo,
+  init: (canvas, configData, globalTempData) => unit,
+  getCanvas: unit => Js.Nullable.t<canvas>,
+  getSharedArrayBufferData: unit => sharedArrayBufferData,
+}
+
+module Worker = {
+  type configRepo = {getIsDebug: unit => bool}
+
+  type transformRepo = {
+    toComponent: int => transform,
+    getLocalPosition: transform => position,
+    getPosition: transform => position,
+    getLocalRotation: transform => rotation,
+    getRotation: transform => rotation,
+    getLocalScale: transform => scale,
+    getScale: transform => scale,
+    getLocalEulerAngles: transform => eulerAngles,
+    getEulerAngles: transform => eulerAngles,
+    getLocalToWorldMatrix: transform => localToWorldMatrix,
+    getNormalMatrix: transform => normalMatrix,
+  }
+
+  type geometryRepo = {
+    toComponent: int => geometry,
+    getVertices: geometry => Js.Nullable.t<Js.Typed_array.Float32Array.t>,
+    hasVertices: geometry => bool,
+    getNormals: geometry => Js.Nullable.t<Js.Typed_array.Float32Array.t>,
+    hasNormals: geometry => bool,
+    getTexCoords: geometry => Js.Nullable.t<Js.Typed_array.Float32Array.t>,
+    hasTexCoords: geometry => bool,
+    getTangents: geometry => Js.Nullable.t<Js.Typed_array.Float32Array.t>,
+    hasTangents: geometry => bool,
+    getIndices: geometry => Js.Nullable.t<Js.Typed_array.Uint32Array.t>,
+    hasIndices: geometry => bool,
+    getIndicesCount: geometry => Js.Nullable.t<int>,
+    computeTangents: (
+      Js.Typed_array.Float32Array.t,
+      Js.Typed_array.Float32Array.t,
+      Js.Typed_array.Float32Array.t,
+      Js.Typed_array.Uint32Array.t,
+    ) => Js.Typed_array.Float32Array.t,
+  }
+
+  type pbrMaterialRepo = {
+    toComponent: int => pbrMaterial,
+    getDiffuseColor: pbrMaterial => color,
+    getSpecularColor: pbrMaterial => color,
+    getSpecular: pbrMaterial => float,
+    getRoughness: pbrMaterial => float,
+    getMetalness: pbrMaterial => float,
+    getTransmission: pbrMaterial => float,
+    getIOR: pbrMaterial => float,
+    getDiffuseMap: pbrMaterial => Js.Nullable.t<diffuseMap>,
+    getChannelRoughnessMetallicMap: pbrMaterial => Js.Nullable.t<channelRoughnessMetallicMap>,
+    getEmissionMap: pbrMaterial => Js.Nullable.t<emissionMap>,
+    getNormalMap: pbrMaterial => Js.Nullable.t<normalMap>,
+    getTransmissionMap: pbrMaterial => Js.Nullable.t<transmissionMap>,
+    getSpecularMap: pbrMaterial => Js.Nullable.t<specularMap>,
+  }
+
+  type directionLightRepo = {
+    toComponent: int => directionLight,
+    getColor: directionLight => color,
+    getIntensity: directionLight => float,
+    getDirection: directionLight => Js.Nullable.t<(float, float, float)>,
+  }
+}
+
+export type sceneGraphRepoForRenderWorker = {
+  configRepo: Worker.configRepo,
+  transformRepo: Worker.transformRepo,
+  geometryRepo: Worker.geometryRepo,
+  pbrMaterialRepo: Worker.pbrMaterialRepo,
+  directionLightRepo: Worker.directionLightRepo,
+  init: (bool, sharedArrayBufferData) => unit,
 }

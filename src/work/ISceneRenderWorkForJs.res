@@ -6,12 +6,40 @@ type getUpdatePipelineData = unit => PipelineDOTypeForJs.pipelineData
 
 type getRenderPipelineData = unit => PipelineDOTypeForJs.pipelineData
 
-type getExecFunc = (string, string) => Js.Nullable.t<PipelineDOTypeForJs.execFunc>
+type getExecFuncForNoWorker = (
+  string,
+  string,
+) => Js.Nullable.t<PipelineDOTypeForJs.execFuncForNoWorker>
 
-export type sceneRenderWork = {
+type getExecFuncForMainWorker = (
+  string,
+  string,
+) => Js.Nullable.t<PipelineDOTypeForJs.execFuncForMainWorker>
+
+type getExecFuncForRenderWorker = (
+  string,
+  string,
+) => Js.Nullable.t<PipelineDOTypeForJs.execFuncForRenderWorker>
+
+export type sceneRenderWorkForNoWorker = {
   init: init,
-  getExecFunc: getExecFunc,
+  getExecFunc: getExecFuncForNoWorker,
   getInitPipelineData: getInitPipelineData,
   getUpdatePipelineData: getUpdatePipelineData,
+  getRenderPipelineData: getRenderPipelineData,
+}
+
+export type sceneRenderWorkForMainWorker = {
+  init: init,
+  getExecFunc: getExecFuncForMainWorker,
+  getInitPipelineData: getInitPipelineData,
+  getUpdatePipelineData: getUpdatePipelineData,
+  getRenderPipelineData: getRenderPipelineData,
+}
+
+export type sceneRenderWorkForRenderWorker = {
+  init: init,
+  getExecFunc: getExecFuncForRenderWorker,
+  getInitPipelineData: getInitPipelineData,
   getRenderPipelineData: getRenderPipelineData,
 }

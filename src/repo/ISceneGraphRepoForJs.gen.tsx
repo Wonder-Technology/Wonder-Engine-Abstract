@@ -129,7 +129,8 @@ export type transformRepo = {
   readonly rotateWorldOnAxis: (_1:transform, _2:[angle, axis]) => void; 
   readonly getLocalToWorldMatrix: (_1:transform) => localToWorldMatrix; 
   readonly getNormalMatrix: (_1:transform) => normalMatrix; 
-  readonly lookAt: (_1:transform, _2:target) => void
+  readonly lookAt: (_1:transform, _2:target) => void; 
+  readonly update: () => void
 };
 
 // tslint:disable-next-line:interface-over-type-literal
@@ -348,7 +349,7 @@ export type configData = {
 export type globalTempData = { readonly float9Array1: Js_Typed_array_Float32Array_t; readonly float32Array1: Js_Typed_array_Float32Array_t };
 
 // tslint:disable-next-line:interface-over-type-literal
-export type sceneGraphRepo = {
+export type sceneGraphRepoForNoWorker = {
   readonly configRepo: configRepo; 
   readonly sceneRepo: sceneRepo; 
   readonly gameObjectRepo: gameObjectRepo; 
@@ -361,4 +362,96 @@ export type sceneGraphRepo = {
   readonly arcballCameraControllerRepo: arcballCameraControllerRepo; 
   readonly init: (_1:canvas, _2:configData, _3:globalTempData) => void; 
   readonly getCanvas: () => (null | undefined | canvas)
+};
+
+// tslint:disable-next-line:max-classes-per-file 
+// tslint:disable-next-line:class-name
+export abstract class sharedArrayBufferData { protected opaque!: any }; /* simulate opaque types */
+
+// tslint:disable-next-line:interface-over-type-literal
+export type sceneGraphRepoForMainWorker = {
+  readonly configRepo: configRepo; 
+  readonly sceneRepo: sceneRepo; 
+  readonly gameObjectRepo: gameObjectRepo; 
+  readonly transformRepo: transformRepo; 
+  readonly geometryRepo: geometryRepo; 
+  readonly pbrMaterialRepo: pbrMaterialRepo; 
+  readonly directionLightRepo: directionLightRepo; 
+  readonly basicCameraViewRepo: basicCameraViewRepo; 
+  readonly perspectiveCameraProjectionRepo: perspectiveCameraProjectionRepo; 
+  readonly arcballCameraControllerRepo: arcballCameraControllerRepo; 
+  readonly init: (_1:canvas, _2:configData, _3:globalTempData) => void; 
+  readonly getCanvas: () => (null | undefined | canvas); 
+  readonly getSharedArrayBufferData: () => sharedArrayBufferData
+};
+
+// tslint:disable-next-line:interface-over-type-literal
+export type Worker_configRepo = { readonly getIsDebug: () => boolean };
+
+// tslint:disable-next-line:interface-over-type-literal
+export type Worker_transformRepo = {
+  readonly toComponent: (_1:number) => transform; 
+  readonly getLocalPosition: (_1:transform) => position; 
+  readonly getPosition: (_1:transform) => position; 
+  readonly getLocalRotation: (_1:transform) => rotation; 
+  readonly getRotation: (_1:transform) => rotation; 
+  readonly getLocalScale: (_1:transform) => scale; 
+  readonly getScale: (_1:transform) => scale; 
+  readonly getLocalEulerAngles: (_1:transform) => eulerAngles; 
+  readonly getEulerAngles: (_1:transform) => eulerAngles; 
+  readonly getLocalToWorldMatrix: (_1:transform) => localToWorldMatrix; 
+  readonly getNormalMatrix: (_1:transform) => normalMatrix
+};
+
+// tslint:disable-next-line:interface-over-type-literal
+export type Worker_geometryRepo = {
+  readonly toComponent: (_1:number) => geometry; 
+  readonly getVertices: (_1:geometry) => (null | undefined | Js_Typed_array_Float32Array_t); 
+  readonly hasVertices: (_1:geometry) => boolean; 
+  readonly getNormals: (_1:geometry) => (null | undefined | Js_Typed_array_Float32Array_t); 
+  readonly hasNormals: (_1:geometry) => boolean; 
+  readonly getTexCoords: (_1:geometry) => (null | undefined | Js_Typed_array_Float32Array_t); 
+  readonly hasTexCoords: (_1:geometry) => boolean; 
+  readonly getTangents: (_1:geometry) => (null | undefined | Js_Typed_array_Float32Array_t); 
+  readonly hasTangents: (_1:geometry) => boolean; 
+  readonly getIndices: (_1:geometry) => (null | undefined | Js_Typed_array_Uint32Array_t); 
+  readonly hasIndices: (_1:geometry) => boolean; 
+  readonly getIndicesCount: (_1:geometry) => (null | undefined | number); 
+  readonly computeTangents: (_1:Js_Typed_array_Float32Array_t, _2:Js_Typed_array_Float32Array_t, _3:Js_Typed_array_Float32Array_t, _4:Js_Typed_array_Uint32Array_t) => Js_Typed_array_Float32Array_t
+};
+
+// tslint:disable-next-line:interface-over-type-literal
+export type Worker_pbrMaterialRepo = {
+  readonly toComponent: (_1:number) => pbrMaterial; 
+  readonly getDiffuseColor: (_1:pbrMaterial) => color; 
+  readonly getSpecularColor: (_1:pbrMaterial) => color; 
+  readonly getSpecular: (_1:pbrMaterial) => number; 
+  readonly getRoughness: (_1:pbrMaterial) => number; 
+  readonly getMetalness: (_1:pbrMaterial) => number; 
+  readonly getTransmission: (_1:pbrMaterial) => number; 
+  readonly getIOR: (_1:pbrMaterial) => number; 
+  readonly getDiffuseMap: (_1:pbrMaterial) => (null | undefined | diffuseMap); 
+  readonly getChannelRoughnessMetallicMap: (_1:pbrMaterial) => (null | undefined | channelRoughnessMetallicMap); 
+  readonly getEmissionMap: (_1:pbrMaterial) => (null | undefined | emissionMap); 
+  readonly getNormalMap: (_1:pbrMaterial) => (null | undefined | normalMap); 
+  readonly getTransmissionMap: (_1:pbrMaterial) => (null | undefined | transmissionMap); 
+  readonly getSpecularMap: (_1:pbrMaterial) => (null | undefined | specularMap)
+};
+
+// tslint:disable-next-line:interface-over-type-literal
+export type Worker_directionLightRepo = {
+  readonly toComponent: (_1:number) => directionLight; 
+  readonly getColor: (_1:directionLight) => color; 
+  readonly getIntensity: (_1:directionLight) => number; 
+  readonly getDirection: (_1:directionLight) => (null | undefined | [number, number, number])
+};
+
+// tslint:disable-next-line:interface-over-type-literal
+export type sceneGraphRepoForRenderWorker = {
+  readonly configRepo: Worker_configRepo; 
+  readonly transformRepo: Worker_transformRepo; 
+  readonly geometryRepo: Worker_geometryRepo; 
+  readonly pbrMaterialRepo: Worker_pbrMaterialRepo; 
+  readonly directionLightRepo: Worker_directionLightRepo; 
+  readonly init: (_1:boolean, _2:sharedArrayBufferData) => void
 };

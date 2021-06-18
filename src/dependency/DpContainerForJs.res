@@ -1,31 +1,81 @@
 type t = {
-  mutable sceneRenderWork: option<ISceneRenderWorkForJs.sceneRenderWork>,
-  mutable sceneGraphRepo: option<ISceneGraphRepoForJs.sceneGraphRepo>,
+  mutable sceneRenderWorkForNoWorker: option<ISceneRenderWorkForJs.sceneRenderWorkForNoWorker>,
+  mutable sceneRenderWorkForMainWorker: option<ISceneRenderWorkForJs.sceneRenderWorkForMainWorker>,
+  mutable sceneRenderWorkForRenderWorker: option<
+    ISceneRenderWorkForJs.sceneRenderWorkForRenderWorker,
+  >,
+  mutable sceneGraphRepoForNoWorker: option<ISceneGraphRepoForJs.sceneGraphRepoForNoWorker>,
+  mutable sceneGraphRepoForMainWorker: option<ISceneGraphRepoForJs.sceneGraphRepoForMainWorker>,
+  mutable sceneGraphRepoForRenderWorker: option<ISceneGraphRepoForJs.sceneGraphRepoForRenderWorker>,
   // mutable webgpuCore: option<IWebGPUCoreDp.webgpuCore>,
 }
 
 let dpContainer = {
-  sceneRenderWork: None,
-  sceneGraphRepo: None,
+  sceneRenderWorkForNoWorker: None,
+  sceneRenderWorkForMainWorker: None,
+  sceneRenderWorkForRenderWorker: None,
+  sceneGraphRepoForNoWorker: None,
+  sceneGraphRepoForMainWorker: None,
+  sceneGraphRepoForRenderWorker: None,
   // webgpuCore: None,
 }
 
-let unsafeGetSceneRenderWorkDp = () => {
-  dpContainer.sceneRenderWork->OptionSt.unsafeGet
+let unsafeGetSceneRenderWorkForNoWorkerDp = () => {
+  dpContainer.sceneRenderWorkForNoWorker->OptionSt.unsafeGet
 }
 
-let setSceneRenderWorkDp = dp => {
-  dpContainer.sceneRenderWork = dp->Some
+let setSceneRenderWorkForNoWorkerDp = dp => {
+  dpContainer.sceneRenderWorkForNoWorker = dp->Some
 
   ()
 }
 
-let unsafeGetSceneGraphRepoDp = () => {
-  dpContainer.sceneGraphRepo->OptionSt.unsafeGet
+let unsafeGetSceneRenderWorkForMainWorkerDp = () => {
+  dpContainer.sceneRenderWorkForMainWorker->OptionSt.unsafeGet
 }
 
-let setSceneGraphRepoDp = dp => {
-  dpContainer.sceneGraphRepo = dp->Some
+let setSceneRenderWorkForMainWorkerDp = dp => {
+  dpContainer.sceneRenderWorkForMainWorker = dp->Some
+
+  ()
+}
+
+let unsafeGetSceneRenderWorkForRenderWorkerDp = () => {
+  dpContainer.sceneRenderWorkForRenderWorker->OptionSt.unsafeGet
+}
+
+let setSceneRenderWorkForRenderWorkerDp = dp => {
+  dpContainer.sceneRenderWorkForRenderWorker = dp->Some
+
+  ()
+}
+
+let unsafeGetSceneGraphRepoForNoWorkerDp = () => {
+  dpContainer.sceneGraphRepoForNoWorker->OptionSt.unsafeGet
+}
+
+let setSceneGraphRepoForNoWorkerDp = dp => {
+  dpContainer.sceneGraphRepoForNoWorker = dp->Some
+
+  ()
+}
+
+let unsafeGetSceneGraphRepoForMainWorkerDp = () => {
+  dpContainer.sceneGraphRepoForMainWorker->OptionSt.unsafeGet
+}
+
+let setSceneGraphRepoForMainWorkerDp = dp => {
+  dpContainer.sceneGraphRepoForMainWorker = dp->Some
+
+  ()
+}
+
+let unsafeGetSceneGraphRepoForRenderWorkerDp = () => {
+  dpContainer.sceneGraphRepoForRenderWorker->OptionSt.unsafeGet
+}
+
+let setSceneGraphRepoForRenderWorkerDp = dp => {
+  dpContainer.sceneGraphRepoForRenderWorker = dp->Some
 
   ()
 }

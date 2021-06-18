@@ -4,7 +4,11 @@
 
 import type {Stream as $$stream} from 'most';
 
-import type {sceneGraphRepo as ISceneGraphRepoForJs_sceneGraphRepo} from '../../src/repo/ISceneGraphRepoForJs.gen';
+import type {sceneGraphRepoForMainWorker as ISceneGraphRepoForJs_sceneGraphRepoForMainWorker} from '../../src/repo/ISceneGraphRepoForJs.gen';
+
+import type {sceneGraphRepoForNoWorker as ISceneGraphRepoForJs_sceneGraphRepoForNoWorker} from '../../src/repo/ISceneGraphRepoForJs.gen';
+
+import type {sceneGraphRepoForRenderWorker as ISceneGraphRepoForJs_sceneGraphRepoForRenderWorker} from '../../src/repo/ISceneGraphRepoForJs.gen';
 
 // tslint:disable-next-line:interface-over-type-literal
 export type link = "merge" | "concat";
@@ -39,13 +43,25 @@ export type pipelineData = {
 };
 
 // tslint:disable-next-line:interface-over-type-literal
-export type repo = { readonly sceneGraphRepo: ISceneGraphRepoForJs_sceneGraphRepo };
+export type repoForNoWorker = { readonly sceneGraphRepo: ISceneGraphRepoForJs_sceneGraphRepoForNoWorker };
+
+// tslint:disable-next-line:interface-over-type-literal
+export type repoForMainWorker = { readonly sceneGraphRepo: ISceneGraphRepoForJs_sceneGraphRepoForMainWorker };
+
+// tslint:disable-next-line:interface-over-type-literal
+export type repoForRenderWorker = { readonly sceneGraphRepo: ISceneGraphRepoForJs_sceneGraphRepoForRenderWorker };
 
 // tslint:disable-next-line:interface-over-type-literal
 export type stream<a> = $$stream<a>;
 
 // tslint:disable-next-line:interface-over-type-literal
-export type execFunc = (_1:repo) => stream<void>;
+export type execFuncForNoWorker = (_1:repoForNoWorker) => stream<void>;
+
+// tslint:disable-next-line:interface-over-type-literal
+export type execFuncForMainWorker = (_1:repoForMainWorker) => stream<void>;
+
+// tslint:disable-next-line:interface-over-type-literal
+export type execFuncForRenderWorker = (_1:repoForRenderWorker) => stream<void>;
 
 // tslint:disable-next-line:interface-over-type-literal
 export type pipelineStream = stream<void>;
