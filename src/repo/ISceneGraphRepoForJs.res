@@ -89,6 +89,7 @@ type transformRepo = {
   getLocalToWorldMatrix: transform => localToWorldMatrix,
   getNormalMatrix: transform => normalMatrix,
   lookAt: (transform, target) => unit,
+  update: unit => unit,
 }
 
 type geometryRepo = {
