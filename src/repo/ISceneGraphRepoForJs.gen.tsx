@@ -349,6 +349,21 @@ export type configData = {
 export type globalTempData = { readonly float9Array1: Js_Typed_array_Float32Array_t; readonly float32Array1: Js_Typed_array_Float32Array_t };
 
 // tslint:disable-next-line:interface-over-type-literal
+export type sceneGraphRepoForAPI = {
+  readonly configRepo: configRepo; 
+  readonly sceneRepo: sceneRepo; 
+  readonly gameObjectRepo: gameObjectRepo; 
+  readonly transformRepo: transformRepo; 
+  readonly geometryRepo: geometryRepo; 
+  readonly pbrMaterialRepo: pbrMaterialRepo; 
+  readonly directionLightRepo: directionLightRepo; 
+  readonly basicCameraViewRepo: basicCameraViewRepo; 
+  readonly perspectiveCameraProjectionRepo: perspectiveCameraProjectionRepo; 
+  readonly arcballCameraControllerRepo: arcballCameraControllerRepo; 
+  readonly getCanvas: () => (null | undefined | canvas)
+};
+
+// tslint:disable-next-line:interface-over-type-literal
 export type sceneGraphRepoForNoWorker = {
   readonly configRepo: configRepo; 
   readonly sceneRepo: sceneRepo; 

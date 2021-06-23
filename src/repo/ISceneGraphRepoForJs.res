@@ -293,7 +293,19 @@ type globalTempData = {
   float32Array1: Js.Typed_array.Float32Array.t,
 }
 
-// export type sceneGraphRepo
+export type sceneGraphRepoForAPI = {
+  configRepo: configRepo,
+  sceneRepo: sceneRepo,
+  gameObjectRepo: gameObjectRepo,
+  transformRepo: transformRepo,
+  geometryRepo: geometryRepo,
+  pbrMaterialRepo: pbrMaterialRepo,
+  directionLightRepo: directionLightRepo,
+  basicCameraViewRepo: basicCameraViewRepo,
+  perspectiveCameraProjectionRepo: perspectiveCameraProjectionRepo,
+  arcballCameraControllerRepo: arcballCameraControllerRepo,
+  getCanvas: unit => Js.Nullable.t<canvas>,
+}
 
 export type sceneGraphRepoForNoWorker = {
   configRepo: configRepo,
